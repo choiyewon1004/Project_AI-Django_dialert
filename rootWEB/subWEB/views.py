@@ -119,7 +119,7 @@ def find_shelter(point, di_type):
 
     len_li = len(idx_li)
 
-    if len_li ==0 :
+    if len_li == 0 :
         return -1
 
     res_shelter = idx_li[0]
