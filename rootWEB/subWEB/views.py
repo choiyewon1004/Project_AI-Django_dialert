@@ -46,7 +46,7 @@ def res(request):
 
 # 재난 문자 판별 알고리즘
 def discrimination_text(alert_t):
-    type = "수해"
+    type = alert_t
 
     return type
 
