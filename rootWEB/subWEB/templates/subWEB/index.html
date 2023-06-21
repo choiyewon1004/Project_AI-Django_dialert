@@ -29,7 +29,7 @@
         <label> 대피소 도로명주소 : {{shelter_addr}} </label><br>
     </form>
 
-    <div id="navi_map" style="width:100%;height:350px;"></div>
+<!--    <div id="navi_map" style="width:100%;height:350px;"></div>-->
 
 
 
@@ -119,7 +119,7 @@ function displayMarker(locPosition, message,lat_html,lng_html) {
 }
 
 //===============================================================
-
+/*
 var navi_mapContainer = document.getElementById('navi_map'), // 지도를 표시할 div
     navi_mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -128,7 +128,10 @@ var navi_mapContainer = document.getElementById('navi_map'), // 지도를 표시
 
 var navi_map = new kakao.maps.Map(navi_mapContainer, navi_mapOption); // 지도를 생성합니다
 
-function navi_panTo(sh_lat, sh_lng) {
+var sh_lat = 33.450701;
+var sh_lng = 126.570667;
+
+function navi_panTo() {
     // 이동할 위도 경도 위치를 생성합니다
     var navi_moveLatLon = new kakao.maps.LatLng(sh_lat, sh_lng);
 
@@ -136,5 +139,5 @@ function navi_panTo(sh_lat, sh_lng) {
     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
     navi_map.panTo(navi_moveLatLon);
 }
-
+*/
 </script>
