@@ -9,7 +9,6 @@ import pandas as pd
 center = pd.read_csv('C:/Users/esthe/0.project/dsaster_alert/code/rootWEB/subWEB/templates/csv/center.csv')
 data =   pd.read_csv('C:/Users/esthe/0.project/dsaster_alert/code/rootWEB/subWEB/templates/csv/data.csv')
 len_center = len(center)
-flag =0
 
 # Create your views here.
 
@@ -27,28 +26,17 @@ def res(request):
     # print("shelter " , shelter_idx , ">>", data.loc[shelter_idx])
     print("shelter ", shelter_idx)
 
-    if shelter_idx == -1 :
-        flag = 0
-        info_data = {
-            'alert_text': alert_text,
-            'disaster': disaster,
-            'point_lat': point_lat,
-            'point_lng': point_lng,
-            'flag' : flag
-        }
-    else :
-        flag = 1
-        info_data = {
-            'alert_text': alert_text,
-            'disaster' : disaster,
-            'point_lat': point_lat,
-            'point_lng': point_lng,
-            'shelter_lat' : data.loc[shelter_idx, 'lat'],
-            'shelter_lng' : data.loc[shelter_idx, 'lng'],
-            'shelter_name' : data.loc[shelter_idx, '대피소명'],
-            'shelter_addr' : data.loc[shelter_idx, '도로명주소'],
-            'flag' : flag
-        }
+
+    info_data = {
+        'alert_text': alert_text,
+        'disaster' : disaster,
+        'point_lat': point_lat,
+        'point_lng': point_lng,
+        'shelter_lat' : data.loc[shelter_idx, 'lat'],
+        'shelter_lng' : data.loc[shelter_idx, 'lng'],
+        'shelter_name' : data.loc[shelter_idx, '대피소명'],
+        'shelter_addr' : data.loc[shelter_idx, '도로명주소'],
+    }
 
     return render(request, 'subWEB/index.html',info_data)
 

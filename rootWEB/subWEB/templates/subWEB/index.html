@@ -29,7 +29,7 @@
         <label> 대피소 도로명주소 : {{shelter_addr}} </label><br>
     </form>
 
-<!--    <div id="navi_map" style="width:100%;height:350px;"></div>-->
+    <div id="navi_map" style="width:100%;height:350px;"></div>
 
 
 
@@ -119,7 +119,7 @@ function displayMarker(locPosition, message,lat_html,lng_html) {
 }
 
 //===============================================================
-/*
+
 var navi_mapContainer = document.getElementById('navi_map'), // 지도를 표시할 div
     navi_mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -128,16 +128,33 @@ var navi_mapContainer = document.getElementById('navi_map'), // 지도를 표시
 
 var navi_map = new kakao.maps.Map(navi_mapContainer, navi_mapOption); // 지도를 생성합니다
 
-var sh_lat = 33.450701;
-var sh_lng = 126.570667;
+var d_lat = {{shelter_lat}};
+var d_lng =  {{shelter_lng}};
 
-function navi_panTo() {
+//var d_lat = 37.49316124
+//var d_lng =  127.0326027
+
+
+// 마커가 표시될 위치입니다
+var navi_markerPosition  = new kakao.maps.LatLng(d_lat, d_lng);
+
+// 마커를 생성합니다
+var navi_marker = new kakao.maps.Marker({
+    position: navi_markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+navi_marker.setMap(navi_map);
+panTo();
+
+
+function panTo() {
     // 이동할 위도 경도 위치를 생성합니다
-    var navi_moveLatLon = new kakao.maps.LatLng(sh_lat, sh_lng);
+    var navi_moveLatLon = new kakao.maps.LatLng(d_lat, d_lng);
 
     // 지도 중심을 부드럽게 이동시킵니다
     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
     navi_map.panTo(navi_moveLatLon);
 }
-*/
+
 </script>
