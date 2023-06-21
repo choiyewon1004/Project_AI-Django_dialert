@@ -44,8 +44,51 @@ def res(request):
 
 # 재난 문자 판별 알고리즘
 def discrimination_text(alert_t):
-    type = alert_t
 
+    from ckonlpy.tag import Postprocessor
+
+    twitter = Twitter()
+    twitter.add_dictionary(['화학사고', '유해화학', '풍수해', '낙하물', '높음'], 'Noun')
+
+    passwords = {'화학 사고', '지진 해일', '해일', '강풍', '호우', '유해 화학', '지진', '낙하물', '민방공', '여진', '태풍', '풍수해', '침수', '접근자제', '산불',
+                 '미사일', '화재', '월파', '낙석', '주의', '유의', '대피', '높음'}
+    stopwords = {'코로나', '거리두기', '훈련', '실종', '찾습니다', '소음', '오발송', '파업'}
+    postprocessor = Postprocessor(twitter, passwords=passwords, stopwords=stopwords)
+    result = postprocessor.pos(alert_t)
+
+    re = []
+    l_re = len(re)
+    for idx in range(l_re):
+        re.append(result[idx][0])
+
+    earth = ('지진 해일', '지진', '여진 ', '낙하물',)
+    continent = '지진'
+    earth_dic = dict.fromkeys(earth, continent)
+
+    chemi = ('유해화학', '화학사고')
+    continent = '화학사고'
+    chemi_dic = dict.fromkeys(chemi, continent)
+
+    rain = ('태풍', '풍수해', '침수', '월파', '낙석')
+    continent = '풍수해'
+    rain_dic = dict.fromkeys(rain, continent)
+
+    civil = ("민방공", '민방위')
+    continent = '민방위'
+    civil_dic = dict.fromkeys(civil, continent)
+
+    alret = ('주의', '유의', '대피', '높음')
+    continent = '알림'
+    alret_dic = dict.fromkeys(alret, continent)
+
+    dic_type =  [earth_dic,chemi_dic,rain_dic,civil_dic,alret_dic]
+
+
+
+
+
+
+    type = alert_t
     return type
 
 
