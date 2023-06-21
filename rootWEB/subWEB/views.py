@@ -22,16 +22,21 @@ def res(request):
     point_lng = request.GET['here_lng']
 
     disaster = discrimination_text(alert_text)
-    find_shelter((point_lat,point_lng), '수해')
+    shelter_idx = find_shelter( (float(point_lat),float(point_lng)), disaster)
+    print("shelter " , shelter_idx , ">>", data.loc[shelter_idx])
 
-    data = {
+    info_data = {
         'alert_text': alert_text,
         'disaster' : disaster,
         'point_lat': point_lat,
-        'point_lng': point_lng
+        'point_lng': point_lng,
+        'shelter_lat' : data.loc[shelter_idx, 'lat'],
+        'shelter_lng' : data.loc[shelter_idx, 'lng'],
+        'shelter_name' : data.loc[shelter_idx, '대피소명'],
+        'shelter_addr' : data.loc[shelter_idx, '도로명주소'],
     }
 
-    return render(request, 'subWEB/index.html',data)
+    return render(request, 'subWEB/index.html',info_data)
 
 
 
@@ -45,7 +50,7 @@ def discrimination_text(alert_t):
 def find_cluster(point):
 
     res_clus = 0
-    res_dis = 999999999999999
+    res_dis = 999999
 
     for idx in range(len_center):
         des_lat = center.loc[idx, 'lat']
@@ -68,9 +73,10 @@ def find_shelter(point, di_type):
     idx_li = sub_df.index
 
     res_shelter = idx_li[0]
-    res_dis = 999999999
+    len_li = len(idx_li)
+    res_dis = 999999
 
-    for idx in range(len(idx_li)):
+    for idx in range(len_li):
         idx = idx_li[idx]
         des_lat = data.loc[idx, 'lat']
         des_lng = data.loc[idx, 'lng']
@@ -87,7 +93,7 @@ def find_shelter(point, di_type):
 
 def find_info(point, di_type):
     idx = find_shelter(point, di_type)
-    dic = {
+    info_dic = {
         '대피소명': data.loc[idx, '대피소명'],
         '도로명주소': data.loc[idx, '도로명주소'],
         '위도': data.loc[idx, 'lat'],
@@ -95,4 +101,4 @@ def find_info(point, di_type):
         '재난유형': data.loc[idx, 'type']
     }
 
-    return dic
+    return info_dic
