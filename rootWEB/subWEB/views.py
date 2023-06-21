@@ -10,6 +10,8 @@ center = pd.read_csv('C:/Users/esthe/0.project/dsaster_alert/code/rootWEB/subWEB
 data =   pd.read_csv('C:/Users/esthe/0.project/dsaster_alert/code/rootWEB/subWEB/templates/csv/data.csv')
 len_center = len(center)
 
+flag =0
+
 # Create your views here.
 
 def main(request):
@@ -24,6 +26,7 @@ def res(request):
     disaster = discrimination_text(alert_text)
     shelter_idx = find_shelter( (float(point_lat),float(point_lng)), disaster)
     print("shelter " , shelter_idx , ">>", data.loc[shelter_idx])
+    flag =1
 
     info_data = {
         'alert_text': alert_text,
@@ -34,6 +37,7 @@ def res(request):
         'shelter_lng' : data.loc[shelter_idx, 'lng'],
         'shelter_name' : data.loc[shelter_idx, '대피소명'],
         'shelter_addr' : data.loc[shelter_idx, '도로명주소'],
+        'flag' : flag
     }
 
     return render(request, 'subWEB/index.html',info_data)
