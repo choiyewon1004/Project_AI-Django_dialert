@@ -4,5 +4,5 @@ from subWEB import views
 urlpatterns=[
     path('main/',views.main),
     path('res/', views.res),
-    # path('navi/', views.navi)
+    path('test/', views.test)
 ]

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,13 +24,17 @@
 
         <br><br><br>
 
+        {% if flag == 1 %}
         <label> 대피소 이름 : {{shelter_name}} </label><br>
         <label> 대피소 위도 : {{shelter_lat}} </label><br>
         <label> 대피소 경도 : {{shelter_lng}} </label><br>
-        <label> 대피소 도로명주소 : {{shelter_addr}} </label><br>
+        <label> 대피소 도로명주소 : {{shelter_addr}} </label><br><br>
+
+        <div id="navi_map" style="width:100%;height:350px;"></div>
+        {% endif %}
     </form>
 
-    <div id="navi_map" style="width:100%;height:350px;"></div>
+
 
 
 
@@ -57,9 +62,9 @@ if (navigator.geolocation) {
         var lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
 
-        LatLng.push(lat)
-        LatLng.push(lon)
-        console.log('현재 위치 위경도 : ' , LatLng)
+        LatLng.push(lat);
+        LatLng.push(lon);
+        console.log('현재 위치 위경도 : ' , LatLng);
 
         var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
             message = '<div style="padding:5px;">여기에 계신가요?!</div>',
@@ -130,9 +135,6 @@ var navi_map = new kakao.maps.Map(navi_mapContainer, navi_mapOption); // 지도�
 
 var d_lat = {{shelter_lat}};
 var d_lng =  {{shelter_lng}};
-
-//var d_lat = 37.49316124
-//var d_lng =  127.0326027
 
 
 // 마커가 표시될 위치입니다
